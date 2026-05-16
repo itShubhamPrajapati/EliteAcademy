@@ -1,3 +1,4 @@
+'use client'
 import { useState, useEffect, useOptimistic, useRef, useTransition } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Send, Loader2, Smile, Paperclip, Hash, Info, MoreVertical, MessageCircle } from 'lucide-react'
