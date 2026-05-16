@@ -16,7 +16,7 @@ export async function sendMessage(data: { text: string; receiverId: string }) {
   if (!session?.user?.id) return { success: false, error: 'Unauthorized' }
 
   const parsed = messageSchema.safeParse(data)
-  if (!parsed.success) return { success: false, error: parsed.error.errors[0].message }
+  if (!parsed.success) return { success: false, error: parsed.error.issues[0].message }
 
   try {
     const message = await prisma.message.create({

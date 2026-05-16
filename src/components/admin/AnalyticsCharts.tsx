@@ -30,8 +30,8 @@ export function BatchPerformanceChart({ data }: { data: { batch: string; avg: nu
         <XAxis dataKey="batch" tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 12 }} axisLine={false} tickLine={false} />
         <YAxis domain={[0, 100]} tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 12 }} axisLine={false} tickLine={false} />
         <Tooltip content={<GlassTooltip />} cursor={{ fill: 'rgba(255,255,255,0.03)' }} />
-        <Bar dataKey="avg" name="Avg Score %" fill="#0A84FF" radius={[8, 8, 0, 0]}
-          background={{ fill: 'rgba(255,255,255,0.02)', radius: [8, 8, 0, 0] }}
+        <Bar dataKey="avg" name="Avg Score %" fill="#0A84FF" radius={8}
+          background={{ fill: 'rgba(255,255,255,0.02)', radius: 8 }}
         />
       </BarChart>
     </ResponsiveContainer>

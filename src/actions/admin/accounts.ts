@@ -6,6 +6,39 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { revalidatePath } from 'next/cache'
 
+export interface AccountFormValues {
+  name: string
+  email: string
+  role: 'STUDENT' | 'PARENT' | 'ADMIN'
+  batchId?: string
+  parentId?: string
+}
+
+export async function createAccount(data: AccountFormValues) {
+  try {
+    const session = await getServerSession(authOptions)
+    if (!session || session.user.role !== 'ADMIN') throw new Error('Unauthorized')
+
+    const hashedPassword = await bcrypt.hash('password123', 10)
+
+    const user = await prisma.user.create({
+      data: {
+        name: data.name,
+        email: data.email,
+        password: hashedPassword,
+        role: data.role,
+        batchId: data.role === 'STUDENT' ? data.batchId : undefined,
+        parentId: data.role === 'STUDENT' ? data.parentId : undefined,
+      },
+    })
+
+    revalidatePath('/dashboard/admin/accounts')
+    return { success: true, user }
+  } catch (error: any) {
+    return { success: false, error: error.message }
+  }
+}
+
 export async function createStudentWithParent(data: {
   studentName: string
   studentEmail: string
@@ -134,7 +167,7 @@ export async function getUser360Data(userId: string) {
           orderBy: { createdAt: 'desc' },
           take: 5,
         },
-        attendance: {
+        attendances: {
           orderBy: { date: 'desc' },
           take: 10,
         },

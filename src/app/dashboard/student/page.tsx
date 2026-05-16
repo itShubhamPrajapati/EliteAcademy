@@ -7,7 +7,7 @@ import AttendanceHeatmap from '@/components/ui/AttendanceHeatmap'
 import ReportCard from '@/components/ui/ReportCard'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
-import { Download, PlayCircle, MessageCircle } from 'lucide-react'
+import { Download, PlayCircle, MessageCircle, FileText } from 'lucide-react'
 import DownloadActions from '@/components/dashboard/DownloadActions'
 
 export default async function StudentDashboard() {
