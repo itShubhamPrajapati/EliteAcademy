@@ -8,6 +8,8 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
 import { GraduationCap, User } from 'lucide-react'
 import DownloadActions from '@/components/dashboard/DownloadActions'
 
+export const dynamic = 'force-dynamic'
+
 export default async function ParentDashboard() {
   const session = await getServerSession(authOptions)
   if (!session || session.user.role !== 'PARENT') redirect('/login')

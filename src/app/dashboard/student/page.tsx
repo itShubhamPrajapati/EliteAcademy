@@ -10,6 +10,8 @@ import { Button } from '@/components/ui/Button'
 import { Download, PlayCircle, MessageCircle, FileText } from 'lucide-react'
 import DownloadActions from '@/components/dashboard/DownloadActions'
 
+export const dynamic = 'force-dynamic'
+
 export default async function StudentDashboard() {
   const session = await getServerSession(authOptions)
   const userId = session?.user?.id
