@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EliteAcademy | Master 9th &amp; 10th Grade</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#5516be",
+                        "on-error-container": "#93000a",
+                        "on-background": "#191c1d",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#6c748b",
+                        "surface-container-low": "#f3f4f5",
+                        "outline-variant": "#c2c6d6",
+                        "inverse-primary": "#adc6ff",
+                        "surface-container-high": "#e7e8e9",
+                        "inverse-on-surface": "#f0f1f2",
+                        "surface-variant": "#e1e3e4",
+                        "on-surface-variant": "#424754",
+                        "surface-dim": "#d9dadb",
+                        "surface-container": "#edeeef",
+                        "secondary-fixed": "#e9ddff",
+                        "background": "#f8f9fa",
+                        "on-primary-fixed-variant": "#004395",
+                        "surface": "#f8f9fa",
+                        "inverse-surface": "#2e3132",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#fefcff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#bec6e0",
+                        "on-secondary-container": "#fffbff",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-primary-fixed": "#001a42",
+                        "tertiary-fixed": "#dae2fd",
+                        "on-tertiary-container": "#fefcff",
+                        "on-secondary-fixed": "#23005c",
+                        "secondary": "#6b38d4",
+                        "surface-bright": "#f8f9fa",
+                        "primary-container": "#2170e4",
+                        "on-surface": "#191c1d",
+                        "secondary-container": "#8455ef",
+                        "primary-fixed": "#d8e2ff",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "on-tertiary-fixed-variant": "#3f465c",
+                        "on-primary": "#ffffff",
+                        "outline": "#727785",
+                        "primary": "#0058be",
+                        "primary-fixed-dim": "#adc6ff",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#005ac2",
+                        "tertiary": "#545c72",
+                        "on-tertiary-fixed": "#131b2e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "1rem",
+                        "2xl": "8rem",
+                        "base": "4px",
+                        "md": "1.5rem",
+                        "margin-desktop": "120px",
+                        "xl": "4rem",
+                        "gutter": "24px",
+                        "xs": "0.5rem",
+                        "lg": "2rem",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "display-lg-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "button": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-xl": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                        "button": ["16px", {"lineHeight": "1", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #0058be 0%, #6b38d4 100%);
+            color: #ffffff;
+        }
+        .btn-gradient:hover {
+            box-shadow: 0 8px 16px rgba(0, 88, 190, 0.3);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation Bar -->
+<nav class="sticky top-sm z-50 flex justify-between items-center px-lg py-sm bg-white/70 dark:bg-black/70 backdrop-blur-md rounded-full mt-sm mx-auto w-[calc(100%-48px)] max-w-7xl border border-white/50 dark:border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.04)]">
+<a class="font-headline-lg text-headline-lg font-extrabold text-primary dark:text-primary-fixed-dim" href="#">EliteAcademy</a>
+<ul class="hidden md:flex gap-lg items-center">
+<li><a class="text-primary dark:text-primary-fixed-dim font-bold border-b-2 border-primary pb-1" href="#">Programs</a></li>
+<li><a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300" href="#">Batches</a></li>
+<li><a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300" href="#">Faculty</a></li>
+<li><a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300" href="#">Results</a></li>
+</ul>
+<button class="font-button text-button btn-gradient px-lg py-sm rounded-full transition-all duration-300 scale-95 active:scale-90 shadow-md">
+            Enroll Now
+        </button>
+</nav>
+<main class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-2xl space-y-2xl">
+<!-- Hero Section -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-2xl items-center">
+<div class="space-y-lg text-center lg:text-left">
+<div class="inline-block px-sm py-xs bg-primary-container/10 rounded-full text-primary font-label-md text-label-md">
+                    Academic Year 2024-25 Enrollments Open
+                </div>
+<h1 class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-on-surface">
+                    Master 9th &amp; 10th Grade. Build a Strong Foundation for the Boards.
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto lg:mx-0">
+                    Expert guidance, weekly mock tests, and a proven strategy for academic excellence designed for ambitious students.
+                </p>
+<div class="flex flex-col sm:flex-row gap-sm justify-center lg:justify-start pt-sm">
+<button class="font-button text-button btn-gradient px-xl py-md rounded-full transition-all duration-300 shadow-lg text-center">
+                        Join the Next Batch
+                    </button>
+<button class="font-button text-button border-2 border-outline text-on-surface hover:border-primary hover:text-primary px-xl py-md rounded-full transition-all duration-300 text-center">
+                        Explore Syllabus
+                    </button>
+</div>
+</div>
+<div class="relative flex justify-center items-center">
+<div class="absolute inset-0 bg-gradient-to-tr from-primary/10 to-secondary/10 rounded-full blur-3xl scale-110 -z-10"></div>
+<img alt="Student Progress Dashboard Illustration" class="w-full max-w-lg object-contain drop-shadow-2xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAf1NXQApQABicedHKxQ_Hl-aVqZ-_uIqXc2uQluehs2jwahllmox9jNpRr5ld0HjPNAX5a-9qUTvNrkJkSnw3rrzt00DPMXQKqNKzaiRFwwttZe33afDcfW12RFr2NySPr8b3KFbedBp0JBJQWFVAt5SOeinA-N5Q7HqLmPMI_49aLbJuZsORfmx0iwScQFHl1Sl0ygKgpe4Ue7tkiK9g7Dr_wGmql5iVRL9zmjg6GpQc2MTAQKrLKo8r3DQ6iVMwpJ0yT99UoRr2D"/>
+</div>
+</section>
+<!-- Bento Grid Features -->
+<section class="space-y-xl">
+<div class="text-center max-w-3xl mx-auto space-y-md">
+<h2 class="font-headline-xl text-headline-xl text-on-surface">The Elite Advantage</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">A structured approach to ensure you peak at the right time.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Large Card -->
+<div class="md:col-span-2 glass-panel bg-surface-container-lowest rounded-[24px] p-lg shadow-[0_20px_40px_rgba(0,0,0,0.04)] flex flex-col justify-between hover:-translate-y-1 transition-transform duration-300 border border-surface-container-high">
+<div class="space-y-sm">
+<span class="material-symbols-outlined text-primary text-4xl bg-primary-container/10 p-sm rounded-xl inline-block" style="font-variation-settings: 'FILL' 1;">assignment</span>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">Weekly Mock Tests</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Simulated exam environments every week to build stamina, improve time management, and identify weak areas early.</p>
+</div>
+</div>
+<!-- Small Card 1 -->
+<div class="glass-panel bg-surface-container-lowest rounded-[24px] p-lg shadow-[0_20px_40px_rgba(0,0,0,0.04)] hover:-translate-y-1 transition-transform duration-300 border border-surface-container-high">
+<div class="space-y-sm">
+<span class="material-symbols-outlined text-secondary text-4xl bg-secondary-container/10 p-sm rounded-xl inline-block" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<h3 class="font-headline-lg text-headline-lg text-on-surface text-xl">One-on-One Doubt Solving</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Personalized attention to ensure no concept is left misunderstood.</p>
+</div>
+</div>
+<!-- Small Card 2 -->
+<div class="glass-panel bg-surface-container-lowest rounded-[24px] p-lg shadow-[0_20px_40px_rgba(0,0,0,0.04)] hover:-translate-y-1 transition-transform duration-300 border border-surface-container-high">
+<div class="space-y-sm">
+<span class="material-symbols-outlined text-tertiary text-4xl bg-tertiary-container/10 p-sm rounded-xl inline-block" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<h3 class="font-headline-lg text-headline-lg text-on-surface text-xl">Comprehensive Study Material</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Curated notes aligned perfectly with the latest syllabus.</p>
+</div>
+</div>
+<!-- Medium Card (spans 2 on desktop for bento effect) -->
+<div class="md:col-span-2 glass-panel bg-surface-container-lowest rounded-[24px] p-lg shadow-[0_20px_40px_rgba(0,0,0,0.04)] hover:-translate-y-1 transition-transform duration-300 border border-surface-container-high">
+<div class="space-y-sm">
+<span class="material-symbols-outlined text-on-primary-fixed-variant text-4xl bg-primary-fixed/50 p-sm rounded-xl inline-block" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+<h3 class="font-headline-lg text-headline-lg text-on-surface text-xl">Board Exam Strategy</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Specialized sessions focused on answer presentation, scoring maximizing techniques, and stress management for finals.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Pricing / Batch Selection -->
+<section class="space-y-xl py-xl">
+<div class="text-center max-w-3xl mx-auto space-y-md">
+<h2 class="font-headline-xl text-headline-xl text-on-surface">Select Your Journey</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Programs tailored for your academic year.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter max-w-4xl mx-auto">
+<!-- Batch Card 1 -->
+<div class="bg-surface-container-lowest rounded-[24px] p-xl shadow-[0_20px_40px_rgba(0,0,0,0.04)] border border-surface-container-high flex flex-col justify-between">
+<div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-sm">Class 9th - Foundation Batch</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg">Build the critical concepts needed for high school success.</p>
+<ul class="space-y-md mb-xl">
+<li class="flex items-center gap-sm font-body-md text-body-md text-on-surface"><span class="material-symbols-outlined text-primary">check_circle</span> Core Subjects Focus</li>
+<li class="flex items-center gap-sm font-body-md text-body-md text-on-surface"><span class="material-symbols-outlined text-primary">check_circle</span> Monthly Assessments</li>
+<li class="flex items-center gap-sm font-body-md text-body-md text-on-surface"><span class="material-symbols-outlined text-primary">check_circle</span> Concept Building Workshops</li>
+</ul>
+</div>
+<button class="w-full font-button text-button border-2 border-primary text-primary hover:bg-primary hover:text-white px-lg py-md rounded-full transition-all duration-300">
+                        Apply Now
+                    </button>
+</div>
+<!-- Batch Card 2 (Recommended) -->
+<div class="bg-on-surface text-surface-container-lowest rounded-[24px] p-xl shadow-[0_20px_40px_rgba(0,0,0,0.1)] border border-on-surface flex flex-col justify-between relative overflow-hidden">
+<div class="absolute top-0 right-0 bg-secondary text-white font-label-md text-label-md px-md py-xs rounded-bl-xl">
+                        Recommended
+                    </div>
+<div>
+<h3 class="font-headline-lg text-headline-lg text-surface-container-lowest mb-sm pt-sm">Class 10th - Board Target Batch</h3>
+<p class="font-body-md text-body-md text-surface-variant mb-lg">Intensive preparation focused purely on maximizing board exam scores.</p>
+<ul class="space-y-md mb-xl">
+<li class="flex items-center gap-sm font-body-md text-body-md text-surface-container-lowest"><span class="material-symbols-outlined text-primary-fixed-dim">check_circle</span> Full Syllabus Coverage</li>
+<li class="flex items-center gap-sm font-body-md text-body-md text-surface-container-lowest"><span class="material-symbols-outlined text-primary-fixed-dim">check_circle</span> Weekly Mock Tests</li>
+<li class="flex items-center gap-sm font-body-md text-body-md text-surface-container-lowest"><span class="material-symbols-outlined text-primary-fixed-dim">check_circle</span> Previous Year Paper Analysis</li>
+<li class="flex items-center gap-sm font-body-md text-body-md text-surface-container-lowest"><span class="material-symbols-outlined text-primary-fixed-dim">check_circle</span> 24/7 Doubt Support</li>
+</ul>
+</div>
+<button class="w-full font-button text-button btn-gradient px-lg py-md rounded-full transition-all duration-300 shadow-lg">
+                        Apply Now
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-xl px-margin-desktop flex flex-col items-center gap-md border-t border-outline-variant dark:border-outline bg-surface-container-lowest dark:bg-surface-container-lowest">
+<div class="font-headline-lg text-headline-lg font-bold text-on-surface dark:text-on-surface">
+            EliteAcademy
+        </div>
+<div class="flex gap-lg">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim underline transition-all" href="#">Privacy Policy</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim underline transition-all" href="#">Terms of Service</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim underline transition-all" href="#">Contact Us</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim underline transition-all" href="#">Careers</a>
+</div>
+<div class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant mt-sm">
+            © 2024 EliteAcademy Tuition Center. All rights reserved.
+        </div>
+</footer>
+</body></html>

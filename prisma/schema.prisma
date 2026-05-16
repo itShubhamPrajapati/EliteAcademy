@@ -1,0 +1,132 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  role      String   // ADMIN, STUDENT, PARENT
+  name      String
+  email     String   @unique
+  password  String?
+  batchId   String?
+  batch     Batch?   @relation(fields: [batchId], references: [id])
+  createdAt DateTime @default(now())
+  isActive  Boolean  @default(true)
+  
+  parentId  String?
+  parent    User?    @relation("ParentStudent", fields: [parentId], references: [id])
+  children  User[]   @relation("ParentStudent")
+
+  testScores        TestScore[]
+  attendances       Attendance[]
+  individualResults IndividualResult[]
+  notifications     Notification[]
+  
+  sentMessages      Message[] @relation("SentMessages")
+  receivedMessages  Message[] @relation("ReceivedMessages")
+}
+
+model Batch {
+  id        String   @id @default(cuid())
+  grade     String   // 9th, 10th
+  users     User[]
+  materials StudyMaterial[]
+  mockTests MockTest[]
+}
+
+model StudyMaterial {
+  id        String   @id @default(cuid())
+  title     String
+  fileUrl   String
+  batchId   String
+  batch     Batch    @relation(fields: [batchId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model TestScore {
+  id        String   @id @default(cuid())
+  testName  String
+  score     Int
+  maxScore  Int
+  studentId String
+  student   User     @relation(fields: [studentId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Attendance {
+  id        String   @id @default(cuid())
+  date      DateTime
+  status    String   // PRESENT, ABSENT, LATE
+  remarks   String?
+  studentId String
+  student   User     @relation(fields: [studentId], references: [id])
+}
+
+model IndividualResult {
+  id            String   @id @default(cuid())
+  title         String
+  totalMarks    Int
+  obtainedMarks Int
+  pdfFileUrl    String?
+  date          DateTime @default(now())
+  studentId     String
+  student       User     @relation(fields: [studentId], references: [id])
+}
+
+model Notification {
+  id         String   @id @default(cuid())
+  message    String
+  readStatus Boolean  @default(false)
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  createdAt  DateTime @default(now())
+}
+
+model MockTest {
+  id              String     @id @default(cuid())
+  title           String
+  durationMinutes Int
+  batchId         String
+  batch           Batch      @relation(fields: [batchId], references: [id])
+  questions       Question[]
+  createdAt       DateTime   @default(now())
+}
+
+model Question {
+  id         String   @id @default(cuid())
+  text       String
+  mockTestId String
+  mockTest   MockTest @relation(fields: [mockTestId], references: [id], onDelete: Cascade)
+  options    Option[]
+}
+
+model Option {
+  id         String   @id @default(cuid())
+  text       String
+  isCorrect  Boolean  @default(false)
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+}
+
+model Message {
+  id         String   @id @default(cuid())
+  text       String
+  senderId   String
+  sender     User     @relation("SentMessages", fields: [senderId], references: [id])
+  receiverId String
+  receiver   User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  createdAt  DateTime @default(now())
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String
+  grade     String   // 9th, 10th
+  createdAt DateTime @default(now())
+}
