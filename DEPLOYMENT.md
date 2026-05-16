@@ -1,32 +1,43 @@
 # Deployment Guide: EliteAcademy V2
 
-This project is optimized for deployment on **Vercel** with a local-first **SQLite** database.
+This project is optimized for deployment on **Vercel**. While it currently uses a local-first **SQLite** database for development, production deployment requires a few adjustments for persistence and stability.
 
 ## Vercel Deployment Steps
 
 1. **Environment Variables**:
    In your Vercel Project Settings, add the following variables:
-   - `DATABASE_URL`: `file:./dev.db`
-   - `NEXTAUTH_SECRET`: Generate a random string (e.g., using `openssl rand -base64 32`)
-   - `NEXTAUTH_URL`: Your Vercel deployment URL (e.g., `https://your-app.vercel.app`)
+   - `DATABASE_URL`: `file:./dev.db` (for testing only) or your hosted Postgres URL (recommended).
+   - `NEXTAUTH_SECRET`: Generate a random string (e.g., `openssl rand -base64 32`).
+   - `NEXTAUTH_URL`: Your Vercel deployment URL (e.g., `https://your-app.vercel.app`).
 
 2. **Build Settings**:
-   The `package.json` includes a `postinstall` script (`prisma generate`) which Vercel will run automatically. No custom build commands are strictly required, but ensure the framework is set to **Next.js**.
+   - Framework: **Next.js**
+   - Build Command: `next build`
+   - Install Command: `npm install` (Vercel runs the `postinstall` script `prisma generate` automatically).
 
-## Important Notes on SQLite + Vercel
+## ⚠️ Important Production Considerations
 
-> [!WARNING]
-> **Persistence Limitation**: SQLite is a file-based database. Vercel's serverless functions have an ephemeral filesystem. This means any data created (new students, messages, results) while the app is running on Vercel **will be lost** when the function restarts or when you redeploy.
+To make the app fully functional and persistent on Vercel, you must address two ephemeral filesystem limitations:
 
-### Recommended for Production
-To make the data persistent on Vercel, it is highly recommended to switch to a hosted PostgreSQL database:
-1. Use **Vercel Postgres**, **Supabase**, or **Neon**.
-2. Update the `provider` in `prisma/schema.prisma` from `sqlite` to `postgresql`.
-3. Update `DATABASE_URL` to your hosted connection string.
-4. Run `npx prisma db push` to sync the schema.
+### 1. Database Persistence
+SQLite is a file-based database. Vercel's functions are ephemeral, meaning any data created in `dev.db` **will be lost** when the function restarts or you redeploy.
+
+**Recommendation**: Switch to a hosted PostgreSQL database.
+- Use **Vercel Postgres**, **Supabase**, or **Neon**.
+- Update `provider = "postgresql"` in `prisma/schema.prisma`.
+- Update `DATABASE_URL` in Vercel settings.
+- Run `npx prisma db push` to initialize the production schema.
+
+### 2. File Upload Persistence
+The app currently saves Study Materials and Test Results to `public/uploads/`. Vercel **does not persist** files written to the local filesystem at runtime.
+
+**Recommendation**: Use a cloud storage provider.
+- Use **Vercel Blob**, **Cloudinary**, or **AWS S3**.
+- Modify `src/actions/admin/upload.ts` and `src/actions/admin/results.ts` to upload to the chosen provider instead of using `fs.writeFile`.
 
 ## Local Development
 - Run `npm install`
 - Run `npx prisma db push` (to initialize the local `dev.db`)
 - Run `npm run seed` (to create the admin account)
 - Run `npm run dev`
+
