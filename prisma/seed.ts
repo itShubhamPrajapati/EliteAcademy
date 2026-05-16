@@ -20,7 +20,7 @@ async function main() {
   await prisma.user.deleteMany()
   await prisma.batch.deleteMany()
 
-  const password = await bcrypt.hash('EliteAdmin2025!', 10)
+  const password = await bcrypt.hash('admin123', 10)
 
   // Master Admin only
   await prisma.user.create({
@@ -44,7 +44,7 @@ async function main() {
   console.log('')
   console.log('🔐 Admin Login:')
   console.log('   Email:    admin@eliteacademy.com')
-  console.log('   Password: EliteAdmin2025!')
+  console.log('   Password: admin123')
 }
 
 main()

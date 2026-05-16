@@ -41,7 +41,7 @@ export default function LoginPage() {
 
   const handleQuickLogin = (email: string) => {
     setValue('email', email)
-    setValue('password', email.includes('admin') ? 'EliteAdmin2025!' : 'password123')
+    setValue('password', email.includes('admin') ? 'admin123' : 'password123')
   }
 
   return (
@@ -130,7 +130,7 @@ export default function LoginPage() {
             >
               <div className="text-[10px] text-white/60">
                 <div className="font-bold text-white group-hover:text-primary transition-colors">admin@eliteacademy.com</div>
-                <div>Pass: EliteAdmin2025!</div>
+                <div>Pass: admin123</div>
               </div>
               <div className="text-[10px] bg-primary text-white px-2 py-0.5 rounded-md font-bold uppercase">Admin</div>
             </button>
