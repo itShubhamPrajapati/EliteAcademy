@@ -6,9 +6,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
   LayoutDashboard, Users, CalendarCheck, FileText, ChevronLeft,
-  ChevronRight, LogOut, FilePlus, MessageCircle
+  ChevronRight, LogOut, FilePlus, MessageCircle, BookOpen
 } from 'lucide-react'
-import NotificationBell from './NotificationBell'
 
 const roleLinks = {
   ADMIN: [
@@ -17,6 +16,7 @@ const roleLinks = {
     { href: '/dashboard/admin/attendance', label: 'Attendance', icon: CalendarCheck },
     { href: '/dashboard/admin/results', label: 'Results', icon: FileText },
     { href: '/dashboard/admin/create-test', label: 'Tests', icon: FilePlus },
+    { href: '/dashboard/admin/study-materials', label: 'Study Materials', icon: BookOpen },
     { href: '/dashboard/admin/messages', label: 'Messages', icon: MessageCircle },
   ],
   STUDENT: [
@@ -96,12 +96,11 @@ export default function Sidebar({ role }: { role: string | undefined }) {
 
         {/* Bottom Actions */}
         <div className="p-3 border-t border-white/[0.06] flex flex-col gap-2">
-          <div className={`flex items-center ${collapsed ? 'justify-center' : 'justify-between px-2'}`}>
-            {!collapsed && (
+          {!collapsed && (
+            <div className="px-2 pb-1">
               <span className="text-[10px] uppercase tracking-widest text-white/30 font-semibold">{role}</span>
-            )}
-            <NotificationBell />
-          </div>
+            </div>
+          )}
           <Link href="/api/auth/signout">
             <motion.div
               whileTap={{ scale: 0.96 }}

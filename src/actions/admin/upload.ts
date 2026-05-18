@@ -38,3 +38,32 @@ export async function uploadMaterial(formData: FormData) {
 
   return { success: true }
 }
+
+export async function deleteMaterial(id: string) {
+  const session = await getServerSession(authOptions)
+  if (session?.user?.role !== 'ADMIN') throw new Error('Unauthorized')
+
+  try {
+    const material = await prisma.studyMaterial.findUnique({
+      where: { id }
+    })
+
+    if (material) {
+      try {
+        const filePath = path.join(process.cwd(), 'public', material.fileUrl)
+        await fs.unlink(filePath)
+      } catch (err) {
+        console.error('File unlink error:', err)
+      }
+
+      await prisma.studyMaterial.delete({
+        where: { id }
+      })
+    }
+
+    return { success: true }
+  } catch (error: any) {
+    console.error('Delete Material Error:', error)
+    return { success: false, error: error.message || 'Failed to delete material' }
+  }
+}

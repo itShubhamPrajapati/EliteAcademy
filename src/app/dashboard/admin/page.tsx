@@ -15,7 +15,7 @@ import {
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { BatchPerformanceChart, AttendanceTrendChart } from '@/components/admin/AnalyticsCharts'
-
+import RealTimeSync from '@/components/dashboard/RealTimeSync'
 
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
@@ -56,11 +56,40 @@ export default async function AdminDashboard() {
   const studentCount = users.filter(u => u.role === 'STUDENT').length
   const parentCount = users.filter(u => u.role === 'PARENT').length
 
+  const thirtyDaysAgo = subDays(new Date(), 30)
+  const sixtyDaysAgo = subDays(new Date(), 60)
+
+  // Students growth (last 30 days vs 30-60 days)
+  const recentStudents = users.filter(u => u.role === 'STUDENT' && new Date(u.createdAt) >= thirtyDaysAgo).length
+  const olderStudents = users.filter(u => u.role === 'STUDENT' && new Date(u.createdAt) >= sixtyDaysAgo && new Date(u.createdAt) < thirtyDaysAgo).length
+  const studentGrowth = olderStudents === 0 ? (recentStudents > 0 ? 100 : 0) : ((recentStudents - olderStudents) / olderStudents) * 100
+  const studentTrend = `${studentGrowth >= 0 ? '+' : ''}${studentGrowth.toFixed(0)}%`
+
+  // Parents growth (last 30 days vs 30-60 days)
+  const recentParents = users.filter(u => u.role === 'PARENT' && new Date(u.createdAt) >= thirtyDaysAgo).length
+  const olderParents = users.filter(u => u.role === 'PARENT' && new Date(u.createdAt) >= sixtyDaysAgo && new Date(u.createdAt) < thirtyDaysAgo).length
+  const parentGrowth = olderParents === 0 ? (recentParents > 0 ? 100 : 0) : ((recentParents - olderParents) / olderParents) * 100
+  const parentTrend = `${parentGrowth >= 0 ? '+' : ''}${parentGrowth.toFixed(0)}%`
+
+  // Overall Attendance Rate percentage (instead of batch length mock metric)
+  const totalAttendance = allAttendances.length
+  const presentAttendance = allAttendances.filter(a => a.status === 'PRESENT' || a.status === 'LATE').length
+  const attendanceRate = totalAttendance > 0 ? (presentAttendance / totalAttendance) * 100 : 0
+  const attendanceTrend = `${attendanceRate.toFixed(1)}% Avg`
+
+  // Study Materials Growth (last 30 days vs 30-60 days)
+  const totalMaterials = batches.reduce((acc, b) => acc + b.materials.length, 0)
+  const allMaterials = batches.flatMap(b => b.materials)
+  const recentMaterials = allMaterials.filter(m => new Date(m.createdAt) >= thirtyDaysAgo).length
+  const olderMaterials = allMaterials.filter(m => new Date(m.createdAt) >= sixtyDaysAgo && new Date(m.createdAt) < thirtyDaysAgo).length
+  const materialGrowth = olderMaterials === 0 ? (recentMaterials > 0 ? 100 : 0) : ((recentMaterials - olderMaterials) / olderMaterials) * 100
+  const materialTrend = `${materialGrowth >= 0 ? '+' : ''}${materialGrowth.toFixed(0)}%`
+
   const kpis = [
-    { label: 'Total Students', value: studentCount, color: '#0A84FF', trend: '+12%', up: true },
-    { label: 'Total Parents', value: parentCount, color: '#32D74B', trend: '+4%', up: true },
-    { label: 'Active Batches', value: batches.length, color: '#FF9F0A', trend: 'Steady', up: null },
-    { label: 'Total Materials', value: batches.reduce((acc, b) => acc + b.materials.length, 0), color: '#BF5AF2', trend: '+8%', up: true },
+    { label: 'Total Students', value: studentCount, color: '#0A84FF', trend: studentTrend, up: studentGrowth >= 0 },
+    { label: 'Total Parents', value: parentCount, color: '#32D74B', trend: parentTrend, up: parentGrowth >= 0 },
+    { label: 'Active Batches', value: batches.length, color: '#FF9F0A', trend: attendanceTrend, up: attendanceRate >= 75 },
+    { label: 'Total Materials', value: totalMaterials, color: '#BF5AF2', trend: materialTrend, up: materialGrowth >= 0 },
   ]
 
   const quickActions = [
@@ -72,6 +101,7 @@ export default async function AdminDashboard() {
 
   return (
     <div className="space-y-8">
+      <RealTimeSync />
       {/* Page Header */}
       <div className="space-y-1">
         <h1 className="text-4xl font-extrabold tracking-tight text-white">Admin Dashboard</h1>

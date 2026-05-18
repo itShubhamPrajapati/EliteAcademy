@@ -7,6 +7,7 @@ import ReportCard from '@/components/ui/ReportCard'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
 import { GraduationCap, User } from 'lucide-react'
 import DownloadActions from '@/components/dashboard/DownloadActions'
+import RealTimeSync from '@/components/dashboard/RealTimeSync'
 
 export const dynamic = 'force-dynamic'
 
@@ -22,6 +23,7 @@ export default async function ParentDashboard() {
           batch: { select: { grade: true } },
           attendances: { orderBy: { date: 'desc' } },
           individualResults: { orderBy: { date: 'desc' } },
+          testScores: { orderBy: { createdAt: 'desc' } },
         },
       },
     },
@@ -31,6 +33,7 @@ export default async function ParentDashboard() {
 
   return (
     <div className="space-y-8 pb-12">
+      <RealTimeSync />
       <div className="space-y-2">
         <h1 className="text-4xl font-extrabold tracking-tight text-white">Parent Portal</h1>
         <p className="text-white/40 text-lg">Monitor your child's academic journey and growth trends.</p>
@@ -61,7 +64,14 @@ export default async function ParentDashboard() {
                     </div>
                   </div>
                 </div>
-                <DownloadActions studentName={child.name} targetId={`child-report-${child.id}`} />
+                <DownloadActions 
+                  studentName={child.name} 
+                  batchName={`Class ${child.batch?.grade}`} 
+                  testScores={child.testScores}
+                  individualResults={child.individualResults}
+                  attendances={child.attendances}
+                  targetId={`child-report-${child.id}`} 
+                />
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

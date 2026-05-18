@@ -9,6 +9,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Download, PlayCircle, MessageCircle, FileText } from 'lucide-react'
 import DownloadActions from '@/components/dashboard/DownloadActions'
+import RealTimeSync from '@/components/dashboard/RealTimeSync'
 
 export const dynamic = 'force-dynamic'
 
@@ -41,6 +42,7 @@ export default async function StudentDashboard() {
 
   return (
     <div className="space-y-8 pb-10" id="dashboard-content">
+      <RealTimeSync />
       {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
         <div>
@@ -50,7 +52,14 @@ export default async function StudentDashboard() {
           <p className="text-white/40 mt-1 text-lg">Class {user.batch.grade} · EliteAcademy Portal</p>
         </div>
         <div className="flex flex-wrap gap-4">
-          <DownloadActions studentName={user.name} targetId="dashboard-content" />
+          <DownloadActions 
+            studentName={user.name} 
+            batchName={`Class ${user.batch.grade}`} 
+            testScores={user.testScores}
+            individualResults={user.individualResults}
+            attendances={user.attendances}
+            targetId="dashboard-content" 
+          />
           <Button asChild variant="ghost" className="border border-white/10 rounded-2xl h-12 px-6 gap-2 text-white/70 hover:bg-white/5">
             <Link href="/dashboard/student/messages">
               <MessageCircle size={18} /> Ask a Doubt
